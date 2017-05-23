@@ -1,4 +1,9 @@
-<!DOCTYPE html><html lang="en" ng-app="ProjectApp"><!-- Copyright MizTech --><!-- Licensed MikeZheng --><!-- http: //mike-zheng.github.io/ --><!--  
+<!DOCTYPE html>
+<html lang="en" ng-app="ProjectApp">
+<!-- Copyright MizTech -->
+<!-- Licensed MikeZheng -->
+<!-- http: //mike-zheng.github.io/ -->
+<!--  
            _   _____         _     
           (_) |_   _|       | |    
  _ __ ___  _ ___| | ___  ___| |__  
@@ -7,4 +12,44 @@
 |_| |_| |_|_/___\_/\___|\___|_| |_|
 
                mike-zheng.github.io
---><head><meta charset="UTF-8"><title clearfix>Project</title><meta name="viewport" content="width=device-width"><ink rel="Shortcut Icon" type="image/x-icon" href="image/icon_s.png"><link rel="icon" href="image/icon_s.png"><link rel="apple-touch-icon" href="image/icon_s.png"><link rel="apple-touch-icon-precomposed" href="image/icon_s.png"><meta name="description" content="Project"><meta property="og:type" content="article"><meta property="og:title clearfix" content="Project"><meta property="og:url" content=""><meta property="og:site_name" content="Project"><meta property="og:description" content="Project"><meta property="og:image" content="image/web-screenshot.png"><meta name="twitter:card" content="summary"><meta name="twitter:title clearfix" content="Project"><meta name="twitter:description" content="Project"><link rel="stylesheet" href="css/mizUI.css"><script src="js/angular.min.js"></script><script src="https://apis.google.com/js/client.js?onload=init"></script><script src="https://www.youtube.com/iframe_api"></script><script src="js/miz.js"></script></ink></head><body ng-controller="ProjectController" w-mousetrap="{'h+e+l+l+o': switchHelloMode}"><div ng-init="init()"><div ng-if="broadCasting">{{broadCast}}</div><div class="search-area"><input id="queryInput" placeholder="搜尋關鍵字" class="search-bar" type="text" ng-model="searchQuery" press-enter="search(searchQuery)"> <button id="searchButton" class="search-button" ng-click="search(searchQuery)"><i class="fa fa-search" aria-hidden="true"></i></button></div><li ng-repeat="musicCard in musicLists" ng-click="selectMusicCard(musicCard)"></li></div>4</body></html>
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <title clearfix>Project</title>
+    <meta name="viewport" content="width=device-width">
+    <ink rel="Shortcut Icon" type="image/x-icon" href="image/icon_s.png">
+        <link rel="icon" href="image/icon_s.png">
+        <link rel="apple-touch-icon" href="image/icon_s.png">
+        <link rel="apple-touch-icon-precomposed" href="image/icon_s.png">
+        <meta name="description" content="Project">
+        <meta property="og:type" content="article">
+        <meta property="og:title clearfix" content="Project">
+        <meta property="og:url" content="">
+        <meta property="og:site_name" content="Project">
+        <meta property="og:description" content="Project">
+        <meta property="og:image" content="image/web-screenshot.png">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title clearfix" content="Project">
+        <meta name="twitter:description" content="Project">
+        <link rel="stylesheet" href="css/mizUI.css">
+        <link rel="stylesheet" href="css/icon.css">
+        <script src="js/angular.min.js"></script>
+        <script src="https://apis.google.com/js/client.js?onload=init"></script>
+        <script src="https://www.youtube.com/iframe_api"></script>
+        <script src="js/miz.js"></script>
+    </ink>
+</head>
+
+<body ng-controller="ProjectController" w-mousetrap="{'h+e+l+l+o': switchHelloMode}">
+    <div ng-init="init()">
+        <div ng-if="broadCasting">{{broadCast}}</div>
+        <div class="search-area">
+            <input id="queryInput" placeholder="搜尋關鍵字" class="search-bar" type="text" ng-model="searchQuery" press-enter="search(searchQuery)">
+            <button id="searchButton" class="search-button" ng-click="search(searchQuery)"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </div>
+        <li ng-repeat="musicCard in musicLists" ng-click="selectMusicCard(musicCard)"></li>
+    </div>
+<div class="icon-pencil2"></div></body>
+
+</html>

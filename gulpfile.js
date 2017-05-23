@@ -14,7 +14,10 @@ var gulp = require('gulp'),
     htmlmin = require('gulp-html-minifier'),
     gutil = require('gulp-util'),
     colors = gutil.colors,
-    shell = require('gulp-shell');
+    shell = require('gulp-shell'),
+    read = require('read-file'),
+    writeFile = require('write'),
+    open = require('gulp-open');
 
 var paths = {
     'root': './app/',
@@ -38,6 +41,7 @@ gulp.task('connect', function() {
         root: paths.root,
         livereload: true
     });
+    gulp.src(paths.root).pipe(open({ uri: 'http://localhost:8080', app: 'Google Chrome' }));
 });
 
 //重置
@@ -47,6 +51,7 @@ gulp.task('clean', function() {
 
 // Sass編譯任務
 gulp.task('sass', ['clean'], function() {
+    console.log('\n ' + colors.red('•') + colors.yellow(' [scss] ') + '編譯scss');
     return gulp.src([paths.style.src])
         .pipe(sourcemaps.init())
         .pipe(plumber()) // 使用 gulp-plumber 處理例外
@@ -59,10 +64,12 @@ gulp.task('sass', ['clean'], function() {
         .pipe(minifycss({ keepSpecialComments: 1 }))
         .pipe(gulp.dest(paths.style.output))
         .pipe(connect.reload());
+
 });
 
 //Js壓縮任務
 gulp.task('concatJs', ['clean'], function() {
+    console.log('\n ' + colors.red('•') + colors.green(' [js] ') + '編譯js');
     return gulp.src([paths.js.src])
         .pipe(sourcemaps.init())
         .pipe(plumber())
@@ -71,10 +78,11 @@ gulp.task('concatJs', ['clean'], function() {
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(paths.js.output))
         .pipe(connect.reload());
+
 });
 
 
-gulp.task('minify-html', function() {
+gulp.task('minifyHtml', function() {
     gulp.src(paths.html.src)
         //.pipe(htmlmin({ collapseWhitespace: true }))
         .pipe(gulp.dest(paths.html.output))
@@ -93,20 +101,47 @@ gulp.task('openSublime', function() {
     //shell.task('sublime .')
 });
 
+
+
+//update_icomoon_font_icon
+// gulp.task('updateIcomoonFontIcon', function() {
+//     read('./font/icomoon/style.css', 'utf8', function(err, buffer) {
+//         var t = buffer.match(/\.icon-[a-zA-Z_\-0-9]*:before\s?\{\s*content:\s*"[\\A-Za-z0-9]*";\s*}/g);
+//         if (!(t && t.length)) return;
+
+//         writeFile('./scss/icon.scss', '\n\n@include font-face("icomoon", font-files("icomoon/fonts/icomoon.eot", "icomoon/fonts/icomoon.woff", "icomoon/fonts/icomoon.ttf", "icomoon/fonts/icomoon.svg"));\n[class^="icon-"], [class*=" icon-"] {\n  font-family: "icomoon"; speak: none; font-style: normal; font-weight: normal; font-variant: normal; text-transform: none; line-height: 1;\n  @include font-smoothing(antialiased);\n}\n\n' + t.join('\n'), function(err) {
+//             if (err) console.log('\n ' + colors.red('•') + colors.red(' [錯誤] ') + '寫入檔案失敗！');
+//             else console.log('\n ' + colors.red('•') + colors.yellow(' [icon] ') + '更新 icon 惹，目前有 ' + colors.magenta(t.length) + ' 個！');
+//         });
+//     });
+// });
+
+
+
 //任務"css"負責'sass'這個版型相關的編譯任務
 gulp.task('css', ['sass']);
 //任務"concatJs"負責'js壓縮任務
 gulp.task('js', ['concatJs']);
+gulp.task('html', ['minifyHtml']);
+//gulp.task('creatIcon', ['updateIcomoonFontIcon']);
 
-gulp.task('html', ['minify-html']);
+//顏色表
+// colors.red ('•')
+// colors.yellow ('•')
+// colors.cyan ('•')
+// colors.magenta ('•')
+// colors.green ('•')
 
 gulp.task('default', ['connect', 'html', 'css', 'js', 'openSublime'], function() {
     console.log('\n ' + colors.red('•') + colors.cyan(' [啟動] ') + 'Gulp 初始化！');
-    gulp.watch('./scss/**/**.scss', ['css']);
-    gulp.watch('./prejs/**/**.js', ['js']);
-    gulp.watch('./app/**/**.html', ['minify-html']);
+    gulp.watch('./scss/**/**.scss', ['css', function() {
+        console.log('\n ' + colors.red('•') + colors.yellow(' [scss] ') + '編譯scss');
+    }]);
+    gulp.watch('./prejs/**/**.js', ['js', function() {
+        console.log('\n ' + colors.red('•') + colors.green(' [js] ') + '編譯js');
+    }]);
+    gulp.watch('./app/**/**.html', ['minifyHtml', function() {
+        console.log('\n ' + colors.red('•') + colors.magenta(' [html] ') + '編譯html');
+    }]);
     //gulp.watch('./views/**/**.ejs', ['renderEJS']);
 });
-
-
-

@@ -25,7 +25,10 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-strip-css-comments": "^1.2.0",
     "gulp-uglify": "^1.5.1",
-    "gulp-watch": "^4.3.5"
+    "gulp-watch": "^4.3.5",
+    "read-file": "^0.2.0",
+    "write": "^0.3.3",
+    "gulp-open": "^2.0.0"
   },
   "dependencies": {}
 }
